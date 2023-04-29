@@ -39,6 +39,7 @@ const formats = [
   {
     file: resolve("../lib/index.cjs.js"),
     format: "cjs",
+    name: "canvas2Poster",
   },
   {
     file: resolve("../lib/index.umd.js"),
