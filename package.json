@@ -1,5 +1,5 @@
 {
-  "name": "canvas2Poster",
+  "name": "canvas2Poster.js",
   "version": "0.0.0-alpha.1",
   "description": "",
   "main": "lib/index.cjs.js",
