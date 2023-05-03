@@ -1,6 +1,6 @@
 {
   "name": "canvas2posterjs",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.2",
   "description": "canvas to poster",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
@@ -15,11 +15,15 @@
     "build": "npm run clean && rollup -c scripts/rollup.prod.js",
     "clean": "rimraf lib"
   },
-  "keywords": ["canvas", "poster", "web"],
+  "keywords": [
+    "canvas",
+    "poster",
+    "web"
+  ],
   "author": {
-    "name" : "coderly",
-    "email" : "974257574@qq.com",
-    "url" : "https://coderly.cn/"
+    "name": "coderly",
+    "email": "974257574@qq.com",
+    "url": "https://coderly.cn/"
   },
   "homepage": "https://github.com/coderlyu/canvas2Poster",
   "license": "ISC",

@@ -53,10 +53,6 @@ export default class Canvas2Poster extends Hook {
         if (isEmpty(this.options.painting)) {
             return
         }
-        // ensure upload plugin
-        if(!isEmpty(this.options.upload)) {
-            this.ensureUploadPlugin(require('./plugins/upload'))
-        }
         setStringPrototype(1)
         // 下载图片
         this.downloadImages()
@@ -109,14 +105,6 @@ export default class Canvas2Poster extends Hook {
                 next()
             }
         })
-    }
-    ensureUploadPlugin(Plugin: any) {
-        if(this.plugins.some(e => e instanceof Plugin)) return
-        const uploadPlugin = new Plugin({
-            ...this.options.upload,
-            uploadType: this.options.imageType
-        })
-        this.use(uploadPlugin)
     }
     downloadImages() {
         return new Promise<Painting>(resolve => {
