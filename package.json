@@ -1,6 +1,6 @@
 {
   "name": "canvas2posterjs",
-  "version": "0.0.2",
+  "version": "0.0.2-alpha.1",
   "description": "canvas to poster",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
@@ -15,6 +15,7 @@
     "build": "npm run clean && rollup -c scripts/rollup.prod.js",
     "clean": "rimraf lib"
   },
+  "typings": "lib/src/index.d.ts",
   "keywords": [
     "canvas",
     "poster",
