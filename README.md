@@ -21,7 +21,7 @@ const paint = new CanvasToPoster({
   onSuccess(canvas) {
     document.body.append(canvas)
   },
-  onError() {
+  onError(err) {
     console.log(err)
   }
 })
