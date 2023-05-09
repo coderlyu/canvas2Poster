@@ -1,14 +1,15 @@
 export interface Options {
   painting: Painting
-  dirty: boolean
-  widthPixels: number
-  immediate: boolean
-  imageType: string
-  watch: boolean
-  upload: OptionsUpload
-  onSuccess(canvas: HTMLCanvasElement | null): void
-  onError(err: any): void
+  dirty?: boolean
+  widthPixels?: number
+  immediate?: boolean
+  imageType?: string
+  watch?: boolean
+  upload?: OptionsUpload
+  onSuccess?: (canvas: HTMLCanvasElement | null) => void
+  onError?: (err: any) => void
 }
+
 export type AnyOptions = Options & { [props: string]: any }
 
 export interface OptionsUpload {

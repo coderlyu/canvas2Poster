@@ -82,14 +82,14 @@ export default class Canvas2Poster extends Hook {
             })
             .catch(err => {
                 this.reject(err)
-                if (isFunction(this.options.onError)) this.options.onError(err)
+                if (isFunction(this.options.onError)) this.options.onError?.(err)
             })
     }
     toPaint(res: Painting) {
         const painter = new Painter(this.ctx as CanvasRenderingContext2D, res)
         painter.paint(async () => {
             const next = () => {
-                this.options.onSuccess(this.canvas)
+                this.options.onSuccess?.(this.canvas)
                 this.resolve(this.canvas)
             }
             try {
@@ -279,7 +279,7 @@ const isSupportWebp = (function checkWebpSupport() {
 })()
 
 /**
- *
+ * 判断是否支持 Proxy
  */
 
 const isSupportProxy = (function checkProxySupport() {
