@@ -30,7 +30,7 @@ export interface PaintingView {
   type: 'text'| 'image' | 'qrcode' | 'rect'
   url?: string | HTMLImageElement
   text?: string
-  css?: PaintingViewCss
+  css?: PaintingViewCss | PaintingViewTextCss | PaintingViewImageCss | PaintingViewQrcodeCss | PaintingViewRectCss
   sWidth?: string | number
   sHeight?: string | number
 }
