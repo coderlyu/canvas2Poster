@@ -31,6 +31,7 @@ export interface PaintingView {
   url?: string | HTMLImageElement
   text?: string
   css?: PaintingViewCss | PaintingViewTextCss | PaintingViewImageCss | PaintingViewQrcodeCss | PaintingViewRectCss
+  content?: string
   sWidth?: string | number
   sHeight?: string | number
 }

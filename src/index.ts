@@ -207,7 +207,7 @@ export default class Canvas2Poster extends Hook {
         return this.promise
     }
     toBase64() {
-        return new Promise((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
             return this.promise
                 .then(() => {
                     resolve(this.getBase64())
@@ -215,14 +215,31 @@ export default class Canvas2Poster extends Hook {
                 .catch(reject)
         })
     }
-    getBase64() {
+    download(fileName?:string) {
+        const exts = ['.jpg', '.jpeg', '.png', '.webp']
+        function downloadImage(src: string, fileName = 'example', ext = '') {
+            const link = document.createElement('a')
+            link.href = src
+            link.download = exts.some(e => fileName.endsWith(e)) ? fileName : `${fileName}.${ext}`
+            link.click()
+        }
+        return this.toBase64().then((base64) => {
+            const imageType = this.getImageType()
+            const ext = imageType?.split('/')[1]
+            downloadImage(base64, fileName, ext)
+        })
+    }
+    getImageType() {
         let imageType = `image/${isSupportWebp ? 'webp' : 'jpeg'}`
         if (this.options.imageType) {
             imageType = this.options.imageType.startsWith('image/')
                 ? this.options.imageType
                 : `image/${this.options.imageType}`
         }
-        return (this.canvas && this.canvas.toDataURL(imageType)) || ''
+        return imageType
+    }
+    getBase64() {
+        return (this.canvas && this.canvas.toDataURL(this.getImageType())) || ''
     }
     use(plugin: any) {
         if (this.plugins.includes(plugin)) {
