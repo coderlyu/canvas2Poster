@@ -4,7 +4,6 @@ export interface Options {
   widthPixels?: number
   immediate?: boolean
   imageType?: string
-  watch?: boolean
   upload?: OptionsUpload
   imageQuality?: number
   onSuccess?: (canvas: HTMLCanvasElement | null) => void

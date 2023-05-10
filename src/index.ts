@@ -10,7 +10,6 @@ export default class Canvas2Poster extends Hook {
         widthPixels: 0,
         immediate: false,
         imageType: '',
-        watch: false,
         upload: {},
         onSuccess(canvas: HTMLCanvasElement | null) {
             console.log(canvas)
@@ -44,7 +43,6 @@ export default class Canvas2Poster extends Hook {
         this.assign(options)
         this.canvas = document.createElement('canvas')
         this.ctx = this.canvas.getContext('2d')
-        if (this.options.watch) this.reactiveOption(options)
         if (this.options.immediate) {
             // 立即 startPaint
             this.startPaint(options)
@@ -179,19 +177,6 @@ export default class Canvas2Poster extends Hook {
             if (img.complete === true) {
                 // Inline XML images may fail to parse, throwing an Error later on
                 setTimeout(() => resolve(img), 500)
-            }
-        })
-    }
-    reactiveOption(options: Options) {
-        // 不支持
-        const that = this
-        if (!isSupportProxy) return
-        options.painting = new Proxy(options.painting, {
-            set(target, key, value, receiver) {
-                // 变化了
-                that.startPaint()
-                // todo 深度监听
-                return Reflect.set(target, key, value, receiver)
             }
         })
     }
