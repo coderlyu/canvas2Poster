@@ -6,6 +6,7 @@ export interface Options {
   imageType?: string
   watch?: boolean
   upload?: OptionsUpload
+  imageQuality?: number
   onSuccess?: (canvas: HTMLCanvasElement | null) => void
   onError?: (err: any) => void
 }

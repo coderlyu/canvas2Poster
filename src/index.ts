@@ -2,6 +2,7 @@ import Painter from './painter'
 import { isEmpty, isFunction } from './utils'
 import { Painting, Options } from './types'
 import Hook from './hook'
+
 export default class Canvas2Poster extends Hook {
     options: Options = {
         painting: {},
@@ -14,7 +15,7 @@ export default class Canvas2Poster extends Hook {
         onSuccess(canvas: HTMLCanvasElement | null) {
             console.log(canvas)
         },
-        onError(err) {
+        onError(err: any) {
             console.log(err)
         }
     }
@@ -29,6 +30,7 @@ export default class Canvas2Poster extends Hook {
     canvas: HTMLCanvasElement | null = null
     ctx: CanvasRenderingContext2D | null = null
     hooks: Record<string, any> = {}
+    imageQuality = 0.92
     constructor(options: Options) {
         super()
         this.hooks = {
@@ -39,7 +41,7 @@ export default class Canvas2Poster extends Hook {
             this.resolve = resolve
             this.reject = reject
         })
-        Object.assign(this.options, options)
+        this.assign(options)
         this.canvas = document.createElement('canvas')
         this.ctx = this.canvas.getContext('2d')
         if (this.options.watch) this.reactiveOption(options)
@@ -48,8 +50,14 @@ export default class Canvas2Poster extends Hook {
             this.startPaint(options)
         }
     }
-    startPaint(options = {}) {
+    assign(options: Options | Record<string, any>) {
         Object.assign(this.options, options)
+        if(options.imageQuality) {
+            this.imageQuality = options.imageQuality
+        }
+    }
+    startPaint(options = {}) {
+        this.assign(options)
         if (isEmpty(this.options.painting)) {
             return
         }
@@ -187,12 +195,12 @@ export default class Canvas2Poster extends Hook {
             }
         })
     }
-    toImage() {
+    toImage(imageQuality?:number) {
         return new Promise((resolve, reject) => {
             return this.promise
                 .then(() => {
                     const img = new Image()
-                    img.src = this.getBase64()
+                    img.src = this.getBase64(imageQuality)
                     img.onload = () => {
                         resolve(img)
                     }
@@ -206,16 +214,16 @@ export default class Canvas2Poster extends Hook {
     toCanvas() {
         return this.promise
     }
-    toBase64() {
+    toBase64(imageQuality?: number) {
         return new Promise<string>((resolve, reject) => {
             return this.promise
                 .then(() => {
-                    resolve(this.getBase64())
+                    resolve(this.getBase64(imageQuality))
                 })
                 .catch(reject)
         })
     }
-    download(fileName?:string) {
+    download(fileName?:string, imageQuality?:number) {
         const exts = ['.jpg', '.jpeg', '.png', '.webp']
         function downloadImage(src: string, fileName = 'example', ext = '') {
             const link = document.createElement('a')
@@ -223,7 +231,7 @@ export default class Canvas2Poster extends Hook {
             link.download = exts.some(e => fileName.endsWith(e)) ? fileName : `${fileName}.${ext}`
             link.click()
         }
-        return this.toBase64().then((base64) => {
+        return this.toBase64(imageQuality).then((base64) => {
             const imageType = this.getImageType()
             const ext = imageType?.split('/')[1]
             downloadImage(base64, fileName, ext)
@@ -238,8 +246,8 @@ export default class Canvas2Poster extends Hook {
         }
         return imageType
     }
-    getBase64() {
-        return (this.canvas && this.canvas.toDataURL(this.getImageType())) || ''
+    getBase64(imageQuality?: number) {
+        return (this.canvas && this.canvas.toDataURL(this.getImageType(), imageQuality || this.imageQuality)) || ''
     }
     use(plugin: any) {
         if (this.plugins.includes(plugin)) {
