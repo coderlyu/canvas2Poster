@@ -1,9 +1,9 @@
 import Painter from './painter'
 import { isEmpty, isFunction } from './utils'
 import { Painting, Options } from './types'
-import Hook from './hook'
+import PluginIn from './pluginIn'
 
-export default class Canvas2Poster extends Hook {
+export default class Canvas2Poster extends PluginIn {
     options: Options = {
         painting: {},
         dirty: false,

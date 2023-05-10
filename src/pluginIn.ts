@@ -1,6 +1,7 @@
 import { isFunction, isPromise, isObject } from "./utils"
 
-export class CreateHook {
+//TODO
+export class Hook {
   eventList: any[] = []
   constructor() {}
   tap(name: string, callback: Function) {
@@ -22,11 +23,11 @@ export class CreateHook {
   }
 }
 
-export default class Hook {
+export default class PluginIn {
   pluginList: any[] = []
   constructor() {}
   createHook() {
-    return new CreateHook()
+    return new Hook()
   }
   install(plugin: any) {
     const result: Record<string, any> = {
