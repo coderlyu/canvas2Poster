@@ -4,7 +4,6 @@ export interface Options {
   widthPixels?: number
   immediate?: boolean
   imageType?: string
-  upload?: OptionsUpload
   imageQuality?: number
   onSuccess?: (canvas: HTMLCanvasElement | null) => void
   onError?: (err: any) => void
@@ -12,88 +11,94 @@ export interface Options {
 
 export type AnyOptions = Options & { [props: string]: any }
 
-export interface OptionsUpload {
-  secret?:string
-  scope?: string
-  env?:string
-  uploadType?: string
+type PaintingBaseView = {
+  id?: string
+  sWidth?: string | number
+  sHeight?: string | number
 }
+
+type PaintingViewBaseCss = {
+  color?: string
+  padding?:string
+  top?: string
+  right?: string
+  bottom?: string
+  left?: string | string[]
+  width?: number
+  height?: number
+  rotate?: string
+  align?: 'center' | 'right' | 'left'
+  verticalAlign?: 'top' | 'center' | 'bottom'
+  borderWidth?: string
+  borderStyle?: string
+  borderColor?: string
+  borderRadius?: string
+}
+
 export interface Painting {
   background?: string | HTMLImageElement
   width?: string
   height?: string
   borderRadius?: string
-  views?: Array<PaintingView>
+  views?: Array<PaintingTextView> | Array<PaintingImageView> | Array<PaintingQrcodeView> | Array<PaintingRectViewCss>
 }
+
 export interface PaintingView {
-  id?: string
   type: 'text'| 'image' | 'qrcode' | 'rect'
   url?: string | HTMLImageElement
   text?: string
-  css?: PaintingViewCss | PaintingViewTextCss | PaintingViewImageCss | PaintingViewQrcodeCss | PaintingViewRectCss
+  css?: PaintingTextViewCss
   content?: string
-  sWidth?: string | number
-  sHeight?: string | number
 }
 
-export interface PaintingViewCss {
-  width?: number
-  height?: number
-  background?: string | HTMLImageElement
-  rotate?: string
-  top?: string
-  right?: string
-  bottom?: string
-  left?: string | string[]
-}
+export type PaintingTextView = {
+  type: 'text'
+  text?: string
+  css?: PaintingTextViewCss
+} & PaintingBaseView
 
-export interface PaintingViewTextCss {
+export type PaintingImageView =  {
+  type: 'image'
+  url?: string | HTMLImageElement
+  css?: PaintingTextViewCss
+} & PaintingBaseView
+
+export type PaintingQrcodeView =  {
+  type: 'qrcode'
+  content?: string
+  css?: PaintingQrcodeViewCss
+} & PaintingBaseView
+
+export type PaintingRectView =  {
+  type: 'rect'
+  css?: PaintingRectViewCss
+} & PaintingBaseView
+
+export type PaintingTextViewCss =  {
   fontSize?: string
-  color?: string
-  width?: number
   maxLines?: number
   lineHeight?: string
-  fontWeight?: string
+  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900'
   textDecoration?: string
-  textStyle?: string
+  textStyle?: 'italic' | 'italic' | 'normal'
   fontFamily?: string
   background?: string | HTMLImageElement
-  padding?: string
-  textAlign?: string
   textIndent?: string
-  rotate?: string
-  top?: string
-  right?: string
-  bottom?: string
-  left?: string | string[]
-}
-export interface PaintingViewImageCss {
-  color?: string
-  width?: number
-  mode?: 'scaleToFill' | 'aspectFill'
-  top?: string
-  right?: string
-  bottom?: string
-  left?: string
-}
-export interface PaintingViewQrcodeCss {
-  color?: string
-  width?: number
-  top?: string
-  right?: string
-  bottom?: string
-  left?: string
-}
+} & PaintingViewBaseCss
 
-export interface PaintingViewRectCss {
+export type PaintingImageViewCss = {
+  width?: 'auto' | string
+  height?: 'auto' | string
   color?: string
-  width?: number
   mode?: 'scaleToFill' | 'aspectFill'
-  top?: string
-  right?: string
-  bottom?: string
-  left?: string
-}
+} & PaintingViewBaseCss
+
+export type PaintingQrcodeViewCss = {
+} & PaintingViewBaseCss
+
+export type PaintingRectViewCss = {
+} & PaintingViewBaseCss
+
 declare global {
   interface String {
     toPx(minus?: any, baseSize?: any): number
