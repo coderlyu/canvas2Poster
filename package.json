@@ -1,6 +1,6 @@
 {
   "name": "canvas2posterjs",
-  "version": "0.0.3",
+  "version": "0.0.3-alpha.1",
   "description": "canvas to poster",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
