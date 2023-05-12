@@ -10,7 +10,6 @@ export default class Canvas2Poster extends PluginIn {
         widthPixels: 0,
         immediate: false,
         imageType: '',
-        upload: {},
         onSuccess(canvas: HTMLCanvasElement | null) {
             console.log(canvas)
         },
@@ -36,10 +35,7 @@ export default class Canvas2Poster extends PluginIn {
             beforeStart: this.createHook(),
             beforeEmits: this.createHook()
         }
-        this.promise = new Promise((resolve, reject) => {
-            this.resolve = resolve
-            this.reject = reject
-        })
+        this.getPromise()
         this.assign(options)
         this.canvas = document.createElement('canvas')
         this.ctx = this.canvas.getContext('2d')
@@ -48,13 +44,27 @@ export default class Canvas2Poster extends PluginIn {
             this.startPaint(options)
         }
     }
-    assign(options: Options | Record<string, any>) {
+    private getPromise() {
+        this.promise = new Promise((resolve, reject) => {
+            this.resolve = resolve
+            this.reject = reject
+        })
+    }
+    private assign(options: Options | Record<string, any>) {
         Object.assign(this.options, options)
         if(options.imageQuality) {
             this.imageQuality = options.imageQuality
         }
     }
+    private clearRect() {
+        // 清空画布
+        if(this.canvas && this.ctx) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        }
+    }
     startPaint(options = {}) {
+        this.getPromise()
+        this.clearRect()
         this.assign(options)
         if (isEmpty(this.options.painting)) {
             return
@@ -112,7 +122,7 @@ export default class Canvas2Poster extends PluginIn {
             }
         })
     }
-    downloadImages() {
+    private downloadImages() {
         return new Promise<Painting>(resolve => {
             let preCount = 0
             let completeCount = 0
@@ -163,7 +173,7 @@ export default class Canvas2Poster extends PluginIn {
             // }
         })
     }
-    loadImage(src: any) {
+    private loadImage(src: any) {
         return new Promise<HTMLImageElement>((resolve, reject) => {
             if (src.startsWith('#')) {
                 resolve(src)
@@ -222,7 +232,7 @@ export default class Canvas2Poster extends PluginIn {
             downloadImage(base64, fileName, ext)
         })
     }
-    getImageType() {
+    private getImageType() {
         let imageType = `image/${isSupportWebp ? 'webp' : 'jpeg'}`
         if (this.options.imageType) {
             imageType = this.options.imageType.startsWith('image/')
@@ -231,7 +241,7 @@ export default class Canvas2Poster extends PluginIn {
         }
         return imageType
     }
-    getBase64(imageQuality?: number) {
+    private getBase64(imageQuality?: number) {
         return (this.canvas && this.canvas.toDataURL(this.getImageType(), imageQuality || this.imageQuality)) || ''
     }
     use(plugin: any) {
