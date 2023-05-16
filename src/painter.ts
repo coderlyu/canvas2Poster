@@ -1,5 +1,3 @@
-// const QR = require('./qrcode')
-// const GD = require('./gradient')
 import QR from "./qrcode";
 import GD from "./gradient";
 import { Painting } from "./types";

@@ -297,18 +297,3 @@ const isSupportWebp = (function checkWebpSupport() {
         return false
     }
 })()
-
-/**
- * 判断是否支持 Proxy
- */
-
-const isSupportProxy = (function checkProxySupport() {
-    try {
-        if (typeof Proxy !== 'undefined') {
-            return true
-        }
-        return false
-    } catch (err) {
-        return false
-    }
-})()

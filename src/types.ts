@@ -40,15 +40,7 @@ export interface Painting {
   width?: string
   height?: string
   borderRadius?: string
-  views?: Array<PaintingTextView> | Array<PaintingImageView> | Array<PaintingQrcodeView> | Array<PaintingRectViewCss>
-}
-
-export interface PaintingView {
-  type: 'text'| 'image' | 'qrcode' | 'rect'
-  url?: string | HTMLImageElement
-  text?: string
-  css?: PaintingTextViewCss
-  content?: string
+  views?: Array<PaintingTextView> | Array<PaintingImageView> | Array<PaintingQrcodeView> | Array<PaintingRectView>
 }
 
 export type PaintingTextView = {
