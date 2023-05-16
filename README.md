@@ -259,6 +259,7 @@ new CanvasToPoster({
   })
 ```
 **效果**
+<br />
 <img width="400" src="https://si.geilicdn.com/img-5b7600000187b765df3a0a231447_750_1334.jpg" />
 
 
