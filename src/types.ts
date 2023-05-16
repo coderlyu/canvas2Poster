@@ -24,8 +24,8 @@ type PaintingViewBaseCss = {
   right?: string
   bottom?: string
   left?: string | string[]
-  width?: number
-  height?: number
+  width?: string
+  height?: string
   rotate?: string
   align?: 'center' | 'right' | 'left'
   verticalAlign?: 'top' | 'center' | 'bottom'
@@ -33,14 +33,17 @@ type PaintingViewBaseCss = {
   borderStyle?: string
   borderColor?: string
   borderRadius?: string
+  overflow?: string
 }
+
+export type Views = PaintingTextView | PaintingImageView | PaintingQrcodeView | PaintingRectView
 
 export interface Painting {
   background?: string | HTMLImageElement
   width?: string
   height?: string
   borderRadius?: string
-  views?: Array<PaintingTextView> | Array<PaintingImageView> | Array<PaintingQrcodeView> | Array<PaintingRectView>
+  views?: Array<Views>
 }
 
 export type PaintingTextView = {
@@ -52,7 +55,7 @@ export type PaintingTextView = {
 export type PaintingImageView =  {
   type: 'image'
   url?: string | HTMLImageElement
-  css?: PaintingTextViewCss
+  css?: PaintingImageViewCss
 } & PaintingBaseView
 
 export type PaintingQrcodeView =  {
@@ -72,10 +75,11 @@ export type PaintingTextViewCss =  {
   lineHeight?: string
   fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900'
   textDecoration?: string
-  textStyle?: 'italic' | 'italic' | 'normal'
+  textStyle?: 'italic' | 'stroke' | 'normal'
   fontFamily?: string
   background?: string | HTMLImageElement
   textIndent?: string
+  textAlign?: 'left' | 'center' | 'right'
 } & PaintingViewBaseCss
 
 export type PaintingImageViewCss = {
@@ -86,6 +90,7 @@ export type PaintingImageViewCss = {
 } & PaintingViewBaseCss
 
 export type PaintingQrcodeViewCss = {
+  background?: string
 } & PaintingViewBaseCss
 
 export type PaintingRectViewCss = {
@@ -96,6 +101,3 @@ declare global {
     toPx(minus?: any, baseSize?: any): number
   }
 }
-
-
-// Painter

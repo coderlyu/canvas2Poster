@@ -1,8 +1,9 @@
 import Painter from './painter'
 import { isEmpty, isFunction } from './utils'
-import { Painting, Options } from './types'
+import type { Painting, Options } from './types'
 import PluginIn from './pluginIn'
-
+export type { Painting }
+export type { Options }
 export default class Canvas2Poster extends PluginIn {
     options: Options = {
         painting: {},
@@ -17,7 +18,7 @@ export default class Canvas2Poster extends PluginIn {
             console.log(err)
         }
     }
-    promise = Promise.resolve()
+    promise = Promise.resolve<string | HTMLCanvasElement>('')
     resolve = (canvas: any) => {
         console.log(canvas)
     }

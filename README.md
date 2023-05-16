@@ -79,178 +79,221 @@ new CanvasToPoster({
 
 ## demo
 ```js
-const painting = {
+import Canvas2Poster, { Painting } from 'canvas2posterjs'
+const painting: Painting = {
+  width: '750px',
+  height: '1334px',
+  background:
+    'https://si.geilicdn.com/img-40d300000187ad60ace70a207569-unadjust_1125_2001.png?w=750',
+  views: [
+    {
+      type: 'image',
+      url: 'https://si.geilicdn.com/passport-0b67c6d7f6f35806c2107f1d030a93cf.jpg',
+      css: {
+        top: '95px',
+        left: '327px',
+        width: '102px',
+        height: '102px',
+        overflow: 'hidden',
+        borderRadius: '50%'
+      }
+    },
+    {
+      type: 'text',
+      text: '灶门家门口的小树苗灶门家门口的小灶门家门口的小树苗灶门家门口的小',
+      css: {
+        top: '218px',
+        left: '103px',
+        width: '544px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: '#FFFFFF',
+        maxLines: 1,
+        textAlign: 'center',
+        fontWeight: '400'
+      }
+    },
+    {
+      type: 'image',
+      url: 'https://si.geilicdn.com/img-589400000187ad66c7ca0a210349-unadjust_1125_1500.png',
+      css: {
+        top: '294px',
+        left: '75px',
+        width: '600px',
+        height: '800px'
+      }
+    },
+    {
+      type: 'text',
+      text: '2022年12月5日',
+      css: {
+        top: '430px',
+        left: '160px',
+        width: '430px',
+        height: '38px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: 'rgba(0,0,0,0.40)',
+        textAlign: 'center',
+        fontWeight: '400'
+      }
+    },
+    {
+      type: 'text',
+      text: '天生万物，',
+      css: {
+        top: '542px',
+        left: '160px',
+        width: '430px',
+        lineHeight: '32px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: 'rgba(0,0,0,0.70)',
+        textAlign: 'center',
+        fontWeight: '600'
+      }
+    },
+    {
+      type: 'text',
+      text: '谋望皆通，',
+      css: {
+        top: '622px',
+        left: '160px',
+        width: '430px',
+        lineHeight: '32px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: 'rgba(0,0,0,0.70)',
+        textAlign: 'center',
+        fontWeight: '600'
+      }
+    },
+    {
+      type: 'text',
+      text: '福德相助，',
+      css: {
+        top: '702px',
+        left: '160px',
+        width: '430px',
+        lineHeight: '32px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: 'rgba(0,0,0,0.70)',
+        textAlign: 'center',
+        fontWeight: '600'
+      }
+    },
+    {
+      type: 'text',
+      text: '瑞气匆匆，',
+      css: {
+        top: '782px',
+        left: '160px',
+        width: '430px',
+        lineHeight: '32px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '32px',
+        color: 'rgba(0,0,0,0.70)',
+        textAlign: 'center',
+        fontWeight: '600'
+      }
+    },
+    {
+      type: 'text',
+      text: '戳一戳👉',
+      css: {
+        bottom: '154px',
+        left: '105px',
+        lineHeight: '40px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '28px',
+        color: '#fff',
+        fontWeight: '500'
+      }
+    },
+
+    {
+      type: 'text',
+      text: '抽签今日幸运签🎐',
+      css: {
+        bottom: '102px',
+        left: '105px',
+        lineHeight: '37px',
+        fontFamily: 'PingFangSC-Heavy',
+        fontSize: '28px',
+        color: '#fff',
+        fontWeight: '400'
+      }
+    },
+    {
+      type: 'rect',
+      css: {
+        right: '92px',
+        bottom: '92px',
+        width: '116px',
+        height: '116px',
+        color: '#fff'
+      }
+    },
+    {
+      type: 'qrcode',
+      content: 'https://github.com/coderlyu/canvas2Poster',
+      css: {
+        right: '96px',
+        bottom: '96px',
+        width: '108px',
+        height: '108px'
+      }
+    }
+  ]
+}
+
+new CanvasToPoster({
+  painting,
+  immediate: true,
+  imageType: 'jpeg'
+})
+  .toCanvas()
+  .then((canvas) => {
+    document.body.append(canvas)
+  })
+```
+**效果**
+<img width="400" src="https://si.geilicdn.com/img-5b7600000187b765df3a0a231447_750_1334.jpg" />
+
+
+### typescript helper
+
+如果不了解每个 `type` 下的 `css` 都可以设置什么值，你可以借助 `typescript` 类型来帮助你(对外暴露了 `Options`, `Painting` )
+
+```js
+import Canvas2Poster, { Options, Painting } from 'canvas2posterjs'
+const painting: Painting = {
     width: '750px',
-    height: '1334px',
-    background: 'https://si.geilicdn.com/img-40d300000187ad60ace70a207569-unadjust_1125_2001.png?w=750',
+    height: '1414px',
+    background:
+      'https://si.geilicdn.com/img-111b0000018774e577790a2102d0-unadjust_1125_2121.png?w=750',
     views: [
       {
         type: 'image',
         url: 'https://si.geilicdn.com/passport-0b67c6d7f6f35806c2107f1d030a93cf.jpg',
         css: {
-          top: '95px',
-          left: '327px',
-          width: '102px',
-          height: '102px',
-          overflow: 'hidden',
-          borderRadius: '50%',
-          boxSizing: 'border-box',
-          border: '2px solid #fff'
-        }
-      },
-      {
-        type: 'text',
-        text: '灶门家门口的小树苗灶门家门口的小灶门家门口的小树苗灶门家门口的小',
-        css: {
-          top: '218px',
-          left: '103px',
-          width: '544px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: '#FFFFFF',
-          maxLines: 1,
-          textAlign: 'center',
-          fontWeight: '400'
-        }
-      },
-      {
-        type: 'image',
-        url: 'https://si.geilicdn.com/img-589400000187ad66c7ca0a210349-unadjust_1125_1500.png',
-        css: {
-          top: '294px',
-          left: '75px',
-          width: '600px',
-          height: '800px'
-        }
-      },
-      {
-        type: 'text',
-        text: '2022年12月5日',
-        css: {
-          top: '430px',
-          left: '160px',
-          width: '430px',
-          height: '38px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: 'rgba(0,0,0,0.40)',
-          textAlign: 'center',
-          fontWeight: '400'
-        }
-      },
-      {
-        type: 'text',
-        text: '天生万物，',
-        css: {
-          top: '542px',
-          left: '160px',
-          width: '430px',
-          lineHeight: '32px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: 'rgba(0,0,0,0.70)',
-          textAlign: 'center',
-          fontWeight: '600'
-        }
-      },
-      {
-        type: 'text',
-        text: '谋望皆通，',
-        css: {
-          top: '622px',
-          left: '160px',
-          width: '430px',
-          lineHeight: '32px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: 'rgba(0,0,0,0.70)',
-          textAlign: 'center',
-          fontWeight: '600'
-        }
-      },
-      {
-        type: 'text',
-        text: '福德相助，',
-        css: {
-          top: '702px',
-          left: '160px',
-          width: '430px',
-          lineHeight: '32px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: 'rgba(0,0,0,0.70)',
-          textAlign: 'center',
-          fontWeight: '600'
-        }
-      },
-      {
-        type: 'text',
-        text: '瑞气匆匆，',
-        css: {
-          top: '782px',
-          left: '160px',
-          width: '430px',
-          lineHeight: '32px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '32px',
-          color: 'rgba(0,0,0,0.70)',
-          textAlign: 'center',
-          fontWeight: '600'
-        }
-      },
-      {
-        type: 'text',
-        text: '戳一戳👉',
-        css: {
-          bottom: '154px',
-          left: '105px',
-          lineHeight: '40px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '28px',
-          color: '#fff',
-          fontWeight: '500'
-        }
-      },
-      
-      {
-        type: 'text',
-        text: '抽签今日幸运签🎐',
-        css: {
-          bottom: '102px',
-          left: '105px',
-          lineHeight: '37px',
-          fontFamily: 'PingFangSC-Heavy',
-          fontSize: '28px',
-          color: '#fff',
-          fontWeight: '400'
-        }
-      },
-      {
-        type: 'rect',
-        css: {
-          right: '92px',
-          bottom: '92px',
-          width: '116px',
-          height: '116px',
-          color: '#fff'
-        }
-      },
-      {
-        type: 'qrcode',
-        content: 'https://github.com/coderlyu/canvas2Poster',
-        css: {
-          right: '96px',
-          bottom: '96px',
-          width: '108px',
-          height: '108px',
-          background: '#fff'
+          top: '280px',
+          left: '150px',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%'
         }
       }
     ]
-  }
+}
+const options: Options = {
+    painting: painting,
+    immediate: true,
+    imageType: 'jpeg'
+}
+const paint = new Canvas2Poster(options)
 ```
-**效果**
-<img width="400" src="https://si.geilicdn.com/img-5b7600000187b765df3a0a231447_750_1334.jpg" />
 
 
 ## API
@@ -329,3 +372,95 @@ const painting = {
 | color  | string | 矩形颜色 | black |
 | width  | string | 矩形宽度 |       |
 | height | string | 矩形高度 |       |
+
+
+## Questions
+
+### ts类型不兼容
+如果遇到ts类型不兼容的问题，一般是传入 options 的 `painting` 报错，你可以从 `canvas2posterjs` 引入 `Painting` 或者 `Options`，如下示例
+```js
+import Canvas2Poster, { Options, Painting } from 'canvas2posterjs'
+const painting: Painting = {
+    width: '750px',
+    height: '1414px',
+    background:
+      'https://si.geilicdn.com/img-111b0000018774e577790a2102d0-unadjust_1125_2121.png?w=750',
+    views: [
+      {
+        type: 'image',
+        url: 'https://si.geilicdn.com/passport-0b67c6d7f6f35806c2107f1d030a93cf.jpg',
+        css: {
+          top: '280px',
+          left: '150px',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%'
+        }
+      }
+    ]
+}
+const options: Options = {
+    painting: painting,
+    immediate: true,
+    imageType: 'jpeg'
+}
+const paint = new Canvas2Poster(options)
+```
+or
+
+```js
+import Canvas2Poster, { Painting } from 'canvas2posterjs'
+const painting: Painting = {
+    width: '750px',
+    height: '1414px',
+    background:
+      'https://si.geilicdn.com/img-111b0000018774e577790a2102d0-unadjust_1125_2121.png?w=750',
+    views: [
+      {
+        type: 'image',
+        url: 'https://si.geilicdn.com/passport-0b67c6d7f6f35806c2107f1d030a93cf.jpg',
+        css: {
+          top: '280px',
+          left: '150px',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%'
+        }
+      }
+    ]
+}
+new Canvas2Poster({
+  painting: painting,
+  immediate: true,
+  imageType: 'jpeg'
+})
+```
+or
+
+```js
+import Canvas2Poster, { Painting } from 'canvas2posterjs'
+const painting = {
+    width: '750px',
+    height: '1414px',
+    background:
+      'https://si.geilicdn.com/img-111b0000018774e577790a2102d0-unadjust_1125_2121.png?w=750',
+    views: [
+      {
+        type: 'image',
+        url: 'https://si.geilicdn.com/passport-0b67c6d7f6f35806c2107f1d030a93cf.jpg',
+        css: {
+          top: '280px',
+          left: '150px',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%'
+        }
+      }
+    ]
+}
+new Canvas2Poster({
+  painting: painting as Painting,
+  immediate: true,
+  imageType: 'jpeg'
+})
+```
