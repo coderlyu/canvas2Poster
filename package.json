@@ -13,7 +13,9 @@
     "tsc:prod": "tsc",
     "start": "npm run dev",
     "build": "npm run clean && rollup -c scripts/rollup.prod.js",
-    "clean": "rimraf lib"
+    "clean": "rimraf lib",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "typings": "lib/src/index.d.ts",
   "keywords": [
@@ -51,6 +53,10 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vuepress": "^1.9.9"
+  },
+  "dependencies": {
+    "open": "^9.1.0"
   }
 }
